@@ -15,7 +15,7 @@ const port =process.env.PORT||5000;
 
 //initial
 // solve parameter passing from client
-const clientPath=path.join(__dirname,'../client/public');
+const clientPath=path.join(__dirname,'../client/build');
  app.use(express.static(clientPath));
 app.use(bodyParser.urlencoded({extend:false}));
 app.use(bodyParser.json());
