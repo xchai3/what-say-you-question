@@ -14,12 +14,15 @@ function Quiz(props) {
     };
     //generate every option
     const renderAnswerOptions=(key)=> {
-        console.log("key",key);
+         //key 是每个选项
+        const temp=props.answerOptions;
         return (
             <AnswerOption
                 key={key}
+                id={temp.indexOf(key)}
                 answerContent={key}
                 answerType={key}
+                title={props.question}
                 questionId={props.questionId}
                 onAnswerSelected={props.onAnswerSelected}
             />

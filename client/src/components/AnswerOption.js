@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 function AnswerOption(props) {
     return (
@@ -8,11 +8,12 @@ function AnswerOption(props) {
                     type="radio"
                     className="radioCustomButton"
                     name="radioGroup"
-                    id={props.answerContent}
+                    id={props.id}
                     value={props.answerContent}
+                    title={props.title}
                     onChange={props.onAnswerSelected}
                 />
-                <label className="radioCustomLabel" htmlFor={props.answerContent}>
+                <label className="radioCustomLabel" htmlFor={props.id}>
                     {props.answerContent}
                 </label>
             </li>

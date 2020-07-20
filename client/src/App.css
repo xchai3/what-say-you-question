@@ -27,12 +27,22 @@
 .App-link {
   color: #61dafb;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.container2{
+  margin: auto;
+  padding-top: 20px;
+  text-align: left;
 }
+.container2 h2{
+  padding-left: 5%;
+}
+.container2 p{
+  padding-left: 5%;
+}
+/*@keyframes App-logo-spin {*/
+/*  from {*/
+/*    transform: rotate(0deg);*/
+/*  }*/
+/*  to {*/
+/*    transform: rotate(360deg);*/
+/*  }*/
+/*}*/

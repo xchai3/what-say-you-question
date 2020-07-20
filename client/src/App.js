@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import Quiz from "./components/Quiz";
+import End from "./components/End";
 class App extends Component {
     state={
         counter: 0,
@@ -10,7 +11,9 @@ class App extends Component {
         answerOptions: [],
         num:0,
         final :[],
-        choose: false};
+        result:[],
+        choose: false
+    };
     //retrieve all the questions from database
     componentDidMount() {
         //load all questions
@@ -24,15 +27,20 @@ class App extends Component {
                 this.setState({num:this.state.questions.length})
             }));
     }
-    /*** What is this ***/
+    /*** handle chosen  ***/
     handleAnswerSelected=(event)=> {
-        console.log("event",event.currentTarget);
-        this.setUserAnswer(event.currentTarget.value);
+        const description=event.currentTarget.title;
+        const index=event.currentTarget.id;
+        const result={description,index};
+        console.log("result",result);
         this.setState({
-            choose:true
+            choose:true,
+            result,
         })
     }
     nextStep=()=>{
+        console.log("submit",this.state.result);
+        this.setUserAnswer(this.state.result);
         this.setNextQuestion=this.setNextQuestion.bind(this)
         if (this.state.questionId < this.state.num) {
 
@@ -47,23 +55,15 @@ class App extends Component {
 
 
     setUserAnswer =(param)=> {
-        const len=this.state.final.length;
-        if(len=== this.state.counter) {
-            this.setState({
-                    final: [...this.state.final, param]
-                }
-            );
-        }
-        else
-        {
-            const array=[...this.state.final];
-            array.splice(this.state.counter,1);
-            console.log("test",array);
-            this.setState({
-                    final: [...array,param]
-                }
-            );
-        }
+        console.log("set");
+        console.log(param.description);
+        fetch(`/questions/${param.description}`,{
+            method:'PUT',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body:JSON.stringify(param)
+        });
     }
 
     setNextQuestion=()=> {
@@ -71,12 +71,11 @@ class App extends Component {
         const questionId = this.state.questionId + 1;
 
         this.setState({
-            //设置问题和选项
             counter: counter,
             questionId: questionId,
             question: this.state.questions[counter].description,
             answerOptions: this.state.questions[counter].answers,
-            choose:false
+            choose:false,
         });
     }
 
@@ -99,7 +98,7 @@ class App extends Component {
         return (
             <div className="App">
                 <div className="container">
-                    {this.state.questionId>this.state.num ? <h2>end</h2> :this.renderQuiz()}
+                    {this.state.questionId>this.state.num ? <End/> :this.renderQuiz()}
                 </div>
             </div>
         );
